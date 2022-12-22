@@ -27,17 +27,20 @@ class PasswordValidation {
 
   validateSpecialCases(): boolean | string {
     const specialCasesArray = SPECIAL_CASES.split("");
-    const specialCasesIncluded = [];
-    for (const specialCase of specialCasesArray) {
-      for (const char of this.PASSWORD) {
-        if (char === specialCase) {
-          specialCasesIncluded.push(char);
+    const specialCases = specialCasesArray.reduce(
+      (specialCases: string[], specialCase: string) => {
+        for (const char of this.PASSWORD) {
+          if (char === specialCase) {
+            specialCases.push(char);
+          }
         }
-      }
-    }
-    if (specialCasesIncluded.length < 2) return "Faltam caractéres especiais!";
+        return specialCases;
+      },
+      []
+    );
+    if (specialCases.length < 2) return "Faltam caractéres especiais!";
 
-    return specialCasesIncluded.length >= 2;
+    return true;
   }
 
   toASCIICode() {
