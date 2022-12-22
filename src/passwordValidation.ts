@@ -101,11 +101,6 @@ class PasswordValidation {
         return "Caractéres em sequência!";
       }
     }
-
-    if (!notHasSequence) {
-      return "Caractéres em sequência!";
-    }
-
     return notHasSequence;
   }
 }
