@@ -2,113 +2,156 @@
 //  [x] - A senha deve conter de 16 a 32 caracteres;
 //  [x] - Deve conter pelo menos 2 caracteres especiais;
 //  [x] - Deve conter letras maiúsculas;
-//  [x] - Deve conter letras minúsculas;
 //  [x] - Não pode conter mais de 3 sequencias de caracteres, letras ou números (abc ou 123, por exemplo).
 
-const SPECIAL_CASES = "!@#$%^&*()-_]";
-const UPPER_CASES = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-const LOWER_CASES = "abcdefghijklmnopqrstuvwxyz";
+// Usar um array?
+// const SPECIAL_CASES = "!@#$%^&*()-_]";
 
-class PasswordValidation {
-  private PASSWORD: string;
+interface ResultObj {
+  result: boolean;
+  errors: string[];
+}
+export class PasswordValidation {
+  private resultObj: ResultObj;
   private PASSWORD_ARRAY: string[];
+  private asciiCodes: number[];
+  private SPECIAL_CHARS: string[];
+  private PASSWORD_MIN_LENGTH: number;
+  private PASSWORD_MAX_LENGTH: number;
+    static validatePasswordLength: any;
 
-  constructor() {
-    this.PASSWORD = "rZpy*D95&WBE'Z&B";
-    this.PASSWORD_ARRAY = this.PASSWORD.split("");
+  constructor(private password: string) {
+    this.resultObj = { result: true, errors: [] };
+    this.PASSWORD_ARRAY = this.password.split("");
+    this.asciiCodes = this.toASCIICode(this.PASSWORD_ARRAY);
+    this.SPECIAL_CHARS = [
+      "!",
+      "@",
+      "#",
+      "$",
+      "%",
+      "^",
+      "&",
+      "*",
+      "(",
+      ")",
+      "-",
+      "_",
+      "]",
+    ];
+    this.PASSWORD_MIN_LENGTH = 16;
+    this.PASSWORD_MAX_LENGTH = 32;
   }
 
   validatePasswordLength(): boolean | string {
-    if (this.PASSWORD.length >= 16 && this.PASSWORD.length <= 32) {
-      return true;
-    }
-    return "Tamanho inválido!";
+    return this.password.length >= this.PASSWORD_MIN_LENGTH &&
+      this.password.length <= this.PASSWORD_MAX_LENGTH
+      ? true
+      : "Tamanho inválido!";
   }
 
   validateSpecialCases(): boolean | string {
-    const specialCasesArray = SPECIAL_CASES.split("");
-    const specialCases = specialCasesArray.reduce(
-      (specialCases: string[], specialCase: string) => {
-        for (const char of this.PASSWORD) {
-          if (char === specialCase) {
-            specialCases.push(char);
-          }
-        }
+    const specialCases = this.SPECIAL_CHARS.reduce(
+      (specialCases: number, specialCase: string) => {
+        this.PASSWORD_ARRAY.forEach((char) => {
+          if (char === specialCase) specialCases++;
+        });
+
         return specialCases;
       },
-      []
+      0
     );
-    if (specialCases.length < 2) return "Faltam caractéres especiais!";
-
-    return true;
+    return specialCases < 2 ? "Faltam caractéres especiais!" : true;
   }
 
-  toASCIICode() {
-    return this.PASSWORD_ARRAY.map((char) => {
-      return char.charCodeAt(0);
-    });
+  toASCIICode(password: string[]) {
+    return password.map((char) => char.charCodeAt(0));
   }
 
-  validateUpperCases(codes_array: number[]): boolean | string {
-    const upperCases = codes_array.reduce(
-      (upperCases: number[], code: number) => {
-        if (code >= 65 && code <= 90) {
-          upperCases.push(code);
-        }
+  validateUpperCases(): boolean | string {
+    const upperCases = this.asciiCodes.reduce(
+      (upperCases: number, code: number) => {
+        if (code >= 65 && code <= 90) upperCases++;
         return upperCases;
       },
-      []
+      0
     );
-    if (upperCases.length < 1) {
-      return "A senha deve conter ao menos uma letra maiúscula";
-    }
-    return true;
+
+    return upperCases < 1
+      ? "A senha deve conter ao menos uma letra maiúscula"
+      : true;
   }
 
-  validateLowerCases(codes_array: number[]): boolean | string {
-    const lowerCases = codes_array.reduce(
-      (lowerCases: number[], code: number) => {
-        if (code >= 97 && code <= 122) {
-          lowerCases.push(code);
-        }
+  validateLowerCases(): boolean | string {
+    const lowerCases = this.asciiCodes.reduce(
+      (lowerCases: number, code: number) => {
+        if (code >= 97 && code <= 122) lowerCases++;
         return lowerCases;
       },
-      []
+      0
     );
-    if (lowerCases.length < 1) {
-      return "A senha deve conter ao menos uma letra maiúscula";
-    }
-    return true;
+
+    return lowerCases < 1
+      ? "A senha deve conter ao menos uma letra minúscula"
+      : true;
   }
 
   validateSequences(): boolean | string {
-    let notHasSequence = true;
-    const LOWER_CASE_PASSWORD = this.PASSWORD.toLowerCase();
-    for (const char of LOWER_CASE_PASSWORD) {
-      const CHAR_CODE = char.charCodeAt(0);
-      const CHAR_INDEX = LOWER_CASE_PASSWORD.indexOf(char);
-      const NEXT_TWO_CHARS = LOWER_CASE_PASSWORD.substring(
-        CHAR_INDEX,
-        CHAR_INDEX + 3
-      );
-      const IS_SEQUENCE = String.fromCharCode(
-        CHAR_CODE,
-        CHAR_CODE + 1,
-        CHAR_CODE + 2
-      );
-      if (IS_SEQUENCE === NEXT_TWO_CHARS) {
-        notHasSequence = false;
-        return "Caractéres em sequência!";
-      }
+    const passwordInLowerCase = this.password.toLowerCase().split("");
+    const asciiCodesArrayLowerCases = this.toASCIICode(passwordInLowerCase);
+    let sequences = 0;
+    asciiCodesArrayLowerCases.forEach((code: number, idx) => {
+      if (
+        code === asciiCodesArrayLowerCases[idx + 1] - 1 &&
+        code === asciiCodesArrayLowerCases[idx + 2] - 2
+      )
+        sequences++;
+    });
+
+    return sequences === 0 ? true : "Caractéres em sequência";
+  }
+
+  validatePassword(): ResultObj {
+    const isLengthValid = this.validatePasswordLength();
+    if (typeof isLengthValid === "string") {
+      this.resultObj.errors.push(isLengthValid);
+
+      this.resultObj.result = false;
     }
-    return notHasSequence;
+
+    const hasSpecialCases = this.validateSpecialCases();
+    if (typeof hasSpecialCases === "string") {
+      this.resultObj.errors.push(hasSpecialCases);
+
+      this.resultObj.result = false;
+    }
+
+    const hasUpperCase = this.validateUpperCases();
+    if (typeof hasUpperCase === "string") {
+      this.resultObj.errors.push(hasUpperCase);
+
+      this.resultObj.result = false;
+    }
+
+    const hasLowerCase = this.validateLowerCases();
+    if (typeof hasLowerCase === "string") {
+      this.resultObj.errors.push(hasLowerCase);
+
+      this.resultObj.result = false;
+    }
+
+    const hasSequences = this.validateSequences();
+    if (typeof hasSequences === "string") {
+      this.resultObj.errors.push(hasSequences);
+
+      this.resultObj.result = false;
+    }
+
+    return this.resultObj;
   }
 }
 
-const pl = new PasswordValidation();
-const CODES_ARRAY = pl.toASCIICode();
-console.log(pl.validatePasswordLength());
-console.log(pl.validateSpecialCases());
-console.log(pl.validateUpperCases(CODES_ARRAY));
-console.log(pl.validateLowerCases(CODES_ARRAY));
-console.log(pl.validateSequences());
+const pl = new PasswordValidation("rZpy*D95&WBE'Z&B");
+console.log(pl.validatePassword());
+
+// const SPECIAL_CHARS = ["!","@","#","$","%","^","&","*","(",")","-","_","]"];
