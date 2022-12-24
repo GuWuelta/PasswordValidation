@@ -71,7 +71,7 @@ export class PasswordValidation {
     return specialCases < 2 ? "Faltam caractéres especiais!" : true;
   }
 
-  toASCIICode(password: string[]) {
+  toASCIICode(password: string[]): number[] {
     return password.map((char) => char.charCodeAt(0));
   }
 
