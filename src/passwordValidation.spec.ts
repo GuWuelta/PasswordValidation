@@ -42,7 +42,32 @@ describe("PasswordValidation", () => {
     });
   });
 
-  describe("toASCIICode", () => {});
+  describe("toASCIICode", () => {
+    const stringsArray = [
+      "r",
+      "Z",
+      "p",
+      "y",
+      "*",
+      "D",
+      "9",
+      "5",
+      "&",
+      "W",
+      "B",
+      "E",
+      "'",
+      "Z",
+      "&",
+      "B",
+    ];
+    const ASCIICodesArray = [
+      114, 90, 112, 121, 42, 68, 57, 53, 38, 87, 66, 69, 39, 90, 38, 66,
+    ];
+    it("should be able to receive a strings array and convert to ASCII codes array", () => {
+      expect(plWithNoErrors.toASCIICode(stringsArray)).toEqual(ASCIICodesArray);
+    });
+  });
 
   describe("validateUpperCases", () => {
     it("should be able to validate if password has at least one upper case", () => {
