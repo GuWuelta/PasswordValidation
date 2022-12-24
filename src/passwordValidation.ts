@@ -18,9 +18,16 @@ export class PasswordValidation {
   private SPECIAL_CHARS: string[];
   private PASSWORD_MIN_LENGTH: number;
   private PASSWORD_MAX_LENGTH: number;
-    static validatePasswordLength: any;
+  private MIN_LOWERCASES_ASCII: number;
+  private MAX_LOWERCASES_ASCII: number;
+  private MIN_UPPERCASES_ASCII: number;
+  private MAX_UPPERCASES_ASCII: number;
 
   constructor(private password: string) {
+    this.MIN_LOWERCASES_ASCII = 97;
+    this.MAX_LOWERCASES_ASCII = 122;
+    this.MIN_UPPERCASES_ASCII = 65;
+    this.MAX_UPPERCASES_ASCII = 90;
     this.resultObj = { result: true, errors: [] };
     this.PASSWORD_ARRAY = this.password.split("");
     this.asciiCodes = this.toASCIICode(this.PASSWORD_ARRAY);
@@ -71,7 +78,11 @@ export class PasswordValidation {
   validateUpperCases(): boolean | string {
     const upperCases = this.asciiCodes.reduce(
       (upperCases: number, code: number) => {
-        if (code >= 65 && code <= 90) upperCases++;
+        if (
+          code >= this.MIN_UPPERCASES_ASCII &&
+          code <= this.MAX_UPPERCASES_ASCII
+        )
+          upperCases++;
         return upperCases;
       },
       0
@@ -85,7 +96,11 @@ export class PasswordValidation {
   validateLowerCases(): boolean | string {
     const lowerCases = this.asciiCodes.reduce(
       (lowerCases: number, code: number) => {
-        if (code >= 97 && code <= 122) lowerCases++;
+        if (
+          code >= this.MIN_LOWERCASES_ASCII &&
+          code <= this.MAX_LOWERCASES_ASCII
+        )
+          lowerCases++;
         return lowerCases;
       },
       0
