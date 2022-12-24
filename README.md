@@ -10,7 +10,7 @@
 
 ## :dart: Sobre
 
-Neste desafio, deverá ser construído um método que consegiga receber uma senha e retornar se a mesma é válida, dadas as seguintes validações:
+Neste desafio, deverá ser construído um método que consiga receber uma senha e retornar se a mesma é válida, dadas as seguintes validações:
 
 - A senha deve conter de 16 a 32 caracteres;
 - Deve conter pelo menos 2 caracteres especiais;
