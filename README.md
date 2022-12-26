@@ -4,23 +4,28 @@
 
 <h1 align="center"> 🔒 Validação de Senhas 🔒</h1>
 
-<p align="center"><a href="https://www.typescriptlang.org"><img alt="GitHub top language"  src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white"></a> </p>
+<div align="center">
+  <a href="https://www.facebook.com/profile.php?id=100007939398389" target="_blank"><img src="https://img.shields.io/badge/Facebook-1877F2?style=for-the-badge&logo=facebook&logoColor=white" target="_blank"></a>
+  <a href="https://www.instagram.com/_guwuelta/" target="_blank"><img src="https://img.shields.io/badge/-Instagram-%23E4405F?style=for-the-badge&logo=instagram&logoColor=white" target="_blank"></a>
+  <a href = "mailto:gustavo.wuelta@gmail.com"><img src="https://img.shields.io/badge/-Gmail-%23333?style=for-the-badge&logo=gmail&logoColor=white" target="_blank"></a>
+  <a href="https://www.linkedin.com/in/gustavo-wuelta/" target="_blank"><img src="https://img.shields.io/badge/-LinkedIn-%230077B5?style=for-the-badge&logo=linkedin&logoColor=white" target="_blank"></a> 
+  </div>
 
 <br>
 
 ## :dart: Sobre
 
-Neste desafio, deverá ser construído um método capaz de receber uma senha e retornar se a mesma é válida, dadas as seguintes validações:
+Neste desafio, foi construído um método capaz de receber uma senha e retornar se a mesma é válida, dadas as seguintes validações:
 
-- A senha deve conter de 16 a 32 caractéres.
-- Deve conter pelo menos 2 caractéres especiais.
+- A senha deve conter de 16 a 32 caracteres.
+- Deve conter pelo menos 2 caracteres especiais.
 - Deve conter pelo menos 1 letra maiúscula.
 - Deve conter pelo menos 1 letra minúscula.
-- Não pode conter mais de 3 sequências de caractéres, seja de letras ou números ('abc' ou '123', por exemplo).
+- Não pode conter mais de 3 sequências de caracteres, seja de letras ou números ('abc' ou '123', por exemplo).
 
-<hr>
+<h4>❗Observações: </h4>
 
-## :rocket: Requisitos
+- [x] Deve utilizar Programação Orientada a Objetos (POO).
 
 - [x] Deve retornar um objeto contendo o resultado e uma lista dos erros presentes na senha. (Se não houver erros, a lista deve estar vazia.)
 - [x] Deve conter testes unitários para validar os casos listados no exemplo.
@@ -41,34 +46,31 @@ Neste desafio, deverá ser construído um método capaz de receber uma senha e r
 
 <hr>
 
-## :heavy_check_mark: Regras de Negócio
+## 👾 Tecnologias
 
-<h4>👾 Tecnologias: </h4>
- 
-- [x] Utilizar POO
-- [x] Utilizar Typescript
+<b>Para o desenvolvimento do desafio foram utilizadas as seguintes tecnologias: </b>
 
-<h4>❌ Restrições: </h4>
+<p align="center"><a href="https://www.typescriptlang.org"><img alt="GitHub top language"  src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white"></a></p>
 
-- [x] Não utilizar Libs
-- [x] Não copiar código
+<p align="center"><a href="https://jestjs.io/pt-BR/"><img alt="GitHub top language"  src=https://img.shields.io/badge/Jest-323330?style=for-the-badge&logo=Jest&logoColor=white></a> </p>
 
 <hr>
 
 ## :clipboard: Documentação
 
 <b>Este projeto consiste em uma classe, denominada de "PasswordValidation", a qual é formada pelos seguintes métodos: </b>
+
 <hr>
 
-<b> validatePasswordLength( ): </b> Método responsável por validar se a senha recebida está dentro dos limites de quantidades de caractéres.
+<b> validatePasswordLength( ): </b> Método responsável por validar se a senha recebida está dentro dos limites de quantidades de caracteres.
 <br>
 <b>retorno:</b> em caso de sucesso, o método retorna um boolean "True". Em caso de fracasso, o método retorna a string "Tamanho inválido!".
 
 ---
 
-<b> validateSpecialCases( ): </b> Método responsável por validar se a senha recebida contém pelo menos dois caractéres especiais.
+<b> validateSpecialCases( ): </b> Método responsável por validar se a senha recebida contém pelo menos dois caracteres especiais.
 <br>
-<b>retorno:</b> em caso de sucesso, o método retorna um boolean "True". Em caso de fracasso, o método retorna a string "Faltam caractéres especiais!".
+<b>retorno:</b> em caso de sucesso, o método retorna um boolean "True". Em caso de fracasso, o método retorna a string "Faltam caracteres especiais!".
 
 ---
 
@@ -97,9 +99,9 @@ Neste desafio, deverá ser construído um método capaz de receber uma senha e r
 
 ---
 
-<b> validateSequences( ): </b> Método responsável por validar se a senha recebida contém alguma sequência de três caractéres seguidos (Exemplo: 'abc', '123')
+<b> validateSequences( ): </b> Método responsável por validar se a senha recebida contém alguma sequência de três caracteres seguidos (Exemplo: 'abc', '123')
 <br>
-<b>retorno:</b> em caso de sucesso, o método retorna um boolean "True". Em caso de fracasso, o método retorna a string "Caractéres em sequência!".
+<b>retorno:</b> em caso de sucesso, o método retorna um boolean "True". Em caso de fracasso, o método retorna a string "Caracteres em sequência!".
 
 ---
 
