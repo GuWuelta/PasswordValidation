@@ -43,9 +43,8 @@ Neste desafio, foi construído um método capaz de receber uma senha e retornar 
 
 <b>Para o desenvolvimento do desafio foram utilizadas as seguintes tecnologias: </b>
 
-<p align="center"><a href="https://www.typescriptlang.org"><img alt="GitHub top language"  src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white"></a></p>
-
-<p align="center"><a href="https://jestjs.io/pt-BR/"><img alt="GitHub top language"  src=https://img.shields.io/badge/Jest-323330?style=for-the-badge&logo=Jest&logoColor=white></a> </p>
+- Typescript
+- Jest
 
 <hr>
 
