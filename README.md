@@ -2,7 +2,7 @@
 
 <!-- <img alt="logo da GCB" src="https://media.discordapp.net/attachments/1045500218541613168/1056308451241902181/image.png"> -->
 
-<h1 align="center"> 🔒 Validação de Senhas 🔒</h1>
+<h1 align="center"> 🔒 Validação de Senhas! 🔒</h1>
 
 <br>
 
